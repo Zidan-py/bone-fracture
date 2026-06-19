@@ -1,0 +1,13 @@
+.venv/
+.venv311/
+env/
+env311/
+
+__pycache__/
+*.pyc
+
+.streamlit/
+
+.DS_Store
+
+bone_fracture_model.h5
