@@ -1,8 +1,11 @@
                precision    recall  f1-score   support
 
-    fractured       0.71      0.62      0.66       360
-not_fractured       0.52      0.63      0.57       240
+    fractured       0.80      0.72      0.76       360
+not_fractured       0.64      0.72      0.68       240
 
-     accuracy                           0.62       600
-    macro avg       0.62      0.62      0.62       600
- weighted avg       0.64      0.62      0.63       600
+     accuracy                           0.72       600
+    macro avg       0.72      0.72      0.72       600
+ weighted avg       0.73      0.72      0.73       600
+========================================
+🎯 AKURASI AKHIR MODEL: 72.33%
+========================================

@@ -1,0 +1,28 @@
+flowchart TD
+    A[Buka Aplikasi Web] --> B[Upload Gambar X-Ray]
+    B --> C{Cek Grayscale/Warna?}
+
+    C -->|Ada Warna Dominan| D[Muncul Peringatan: Gambar Bukan X-Ray Murni]
+    D --> E{User Centang Bypass?}
+    E -->|Tidak| F[Proses Dihentikan]
+    E -->|Ya| G[Preprocessing Data]
+
+    C -->|Hitam Putih (Valid)| G
+
+    G --> G1[Ubah ke RGB]
+    G1 --> G2[Resize ke 224x224 px]
+    G2 --> G3[Normalisasi Piksel / 255.0]
+    G3 --> G4[Expand Dimensions Array]
+    G4 --> H[Proses Prediksi oleh Model CNN .h5]
+    H --> I[Ekstrak Nilai Mentah & Confidence Score]
+
+    I --> J{Confidence >= 55%?}
+    J -->|Tidak| K[Peringatan: AI Ragu-ragu / Gambar Tidak Valid]
+    J -->|Ya| L{Kelas Prediksi?}
+
+    L -->|Kelas 0| M[Tampilkan Hasil: FRAKTUR PATAH TULANG]
+    L -->|Kelas 1| N[Tampilkan Hasil: NORMAL TIDAK PATAH]
+
+    M --> O[Selesai]
+    N --> O
+    K --> O
