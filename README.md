@@ -2,7 +2,7 @@
 
 Proyek ini adalah implementasi **Jaringan Saraf Tiruan (JST)** menggunakan arsitektur *Convolutional Neural Network* (CNN) untuk mendeteksi apakah sebuah citra X-Ray tulang mengalami patah (fraktur) atau dalam kondisi normal. 
 
-Sistem ini dilengkapi dengan antarmuka web interaktif menggunakan **Streamlit** dan dibangun untuk memenuhi kriteria proyek akhir yang mencakup: Pemilihan Dataset, Preprocessing Data, Pembagian Data Train-Test, Implementasi JST (Deep Learning), Evaluasi Model, dan Pembuatan GUI.
+Sistem ini dilengkapi dengan antarmuka web interaktif menggunakan **Streamlit** dan dibangun untuk memenuhi kriteria evaluasi model AI yang mencakup: Pemilihan Dataset, Preprocessing Data, Pembagian Data Train-Test, Implementasi JST (Deep Learning), Evaluasi Model, dan Pembuatan GUI.
 
 ---
 
@@ -29,6 +29,10 @@ proyek_bone_fracture/
 ├── cek_header.py               # Skrip pengecekan metadata/header gambar
 ├── test_model.py               # Skrip pengujian model berbasis CLI
 └── train_model.py              # Skrip utama untuk melatih model CNN
+📊 Flowchart Sistem Aplikasi (GUI)
+Berikut adalah alur logika dari aplikasi web saat pengguna mengunggah gambar:
+
+Cuplikan kode
 graph TD
     A[Mulai: Buka Aplikasi Web] --> B[Upload Gambar X-Ray]
     B --> C{Cek Grayscale/Warna?}
@@ -59,9 +63,41 @@ graph TD
     K --> O[Selesai]
     M --> O
     N --> O
+⚙️ Fitur Utama Aplikasi
+Model CNN Kustom: Dilatih khusus mengenali pola diskontinuitas pada tulang. Mendukung output biner (Sigmoid) maupun multikelas (Softmax).
 
+Validasi Heuristik Warna: Mencegah pengguna memasukkan foto selfie atau pemandangan dengan mengecek channel RGB, namun menyediakan fitur paksa (bypass) untuk X-Ray digital yang memiliki rona biru/merah.
 
+Sistem Threshold (Ambang Batas): Memblokir hasil jika confidence AI di bawah 55%, mencegah sistem memberikan tebakan asal pada gambar Out-of-Distribution (OOD).
 
+GUI Interaktif: Antarmuka web yang rapi dan mudah digunakan.
 
+🚀 Cara Menjalankan Proyek di Komputer Lokal
+1. Persiapan Environment
+Pastikan Python sudah terinstal. Aktifkan virtual environment yang sudah dibuat:
 
+Bash
+# Untuk Windows:
+.venv311\Scripts\activate
 
+# Untuk Linux/Mac:
+source .venv311/bin/activate
+2. Instalasi Library
+Jika belum terinstal, jalankan perintah ini di terminal:
+
+Bash
+pip install tensorflow keras numpy pillow streamlit matplotlib scikit-learn
+3. Melatih Model (Opsional)
+Jika ingin menjalankan ulang proses JST dari awal untuk melihat proses pembagian data latih dan uji:
+
+Bash
+python train_model.py
+4. Menjalankan Antarmuka Web (Streamlit)
+Untuk membuka aplikasi berbasis web dan mencoba deteksi citra:
+
+Bash
+streamlit run app_gui.py
+👨‍💻 Pengembang
+M Zidan Al Hafiz Univ Bina Bangsa Getsempena
+
+Proyek ini dikembangkan sebagai bentuk penyelesaian tugas akhir pengembangan sistem kecerdasan buatan.
