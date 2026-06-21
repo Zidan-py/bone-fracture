@@ -1,76 +1,162 @@
-# 🦴 Deteksi Fraktur Tulang (Bone Fracture Detection) dengan JST (CNN)
+# 🦴 Bone Fracture Detection Using Deep Learning
 
-Proyek ini adalah implementasi **Jaringan Saraf Tiruan (JST)** menggunakan arsitektur *Convolutional Neural Network* (CNN) untuk mendeteksi apakah sebuah citra X-Ray tulang mengalami patah (fraktur) atau dalam kondisi normal. 
-
-Sistem ini dilengkapi dengan antarmuka web interaktif menggunakan **Streamlit** dan dibangun untuk memenuhi kriteria evaluasi model AI yang mencakup: Pemilihan Dataset, Preprocessing Data, Pembagian Data Train-Test, Implementasi JST (Deep Learning), Evaluasi Model, dan Pembuatan GUI.
+An AI-based web application for detecting bone fractures from X-Ray images using a Convolutional Neural Network (CNN). This project provides an easy-to-use interface that allows users to upload X-Ray images and obtain fracture predictions along with confidence scores.
 
 ---
 
-## 📂 Struktur Repositori
+## 📌 Overview
+
+Bone fractures are common injuries that require accurate diagnosis. This project applies Deep Learning techniques to assist in detecting fractures from X-Ray images.
+
+The system performs image preprocessing, analyzes the X-Ray using a trained CNN model, and predicts whether the bone is fractured or normal.
+
+---
+
+## ✨ Features
+
+* Upload X-Ray images through a web interface.
+* Automatic image validation.
+* Grayscale and color detection.
+* Image preprocessing pipeline.
+* CNN-based fracture classification.
+* Confidence score calculation.
+* Warning for low-confidence predictions.
+* User-friendly interface.
+* Visualization of training results.
+
+---
+
+## 🛠️ Technologies Used
+
+* Python 3.11
+* TensorFlow / Keras
+* NumPy
+* OpenCV
+* Pillow (PIL)
+* Streamlit / Flask
+* Matplotlib
+* Scikit-learn
+
+---
+
+## 🧠 Deep Learning Model
+
+The model uses a Convolutional Neural Network (CNN) architecture trained on bone X-Ray images.
+
+### Classification Classes
+
+| Class | Description |
+| ----- | ----------- |
+| 0     | Fracture    |
+| 1     | Normal      |
+
+---
+
+## 🔄 System Workflow
+
+1. User uploads an X-Ray image.
+2. The system checks whether the image is a valid X-Ray.
+3. Image preprocessing:
+
+   * Convert to RGB
+   * Resize to 224×224 pixels
+   * Normalize pixel values
+   * Expand image dimensions
+4. CNN model performs prediction.
+5. Confidence score is calculated.
+6. Final result is displayed.
+
+---
+
+## 📊 Training Results
+
+The project includes:
+
+* Accuracy and loss graphs
+* Confusion matrix
+* Classification report
+
+These results can be found inside:
 
 ```text
-proyek_bone_fracture/
-│
-├── assets/                     # Folder penyimpanan gambar
-│   └── licensed-images.jpg     # Gambar ilustrasi AI
-├── dataset/                    # Direktori dataset citra X-Ray
-├── hasil_training/             # Output hasil evaluasi dan model
-├── app_gui.py                  # Skrip Antarmuka/GUI Streamlit
-└── train_model.py              # Skrip utama untuk melatih model CNN
-
+hasil_training/
 ```
 
-📊 Flowchart Sistem Aplikasi (GUI)
-Cuplikan kode
-graph TD
-    A[Mulai: Buka Aplikasi Web] --> B[Upload Gambar X-Ray]
-    B --> C{Cek Grayscale/Warna?}
-    C -- Ada Warna Dominan --> D[Muncul Peringatan: Gambar Bukan X-Ray Murni]
-    D --> E{User Centang Bypass?}
-    E -- Tidak --> F[Proses Dihentikan]
-    E -- Ya --> G[Preprocessing Data]
-    C -- Hitam Putih (Valid) --> G
-    G --> G1[Ubah ke RGB]
-    G1 --> G2[Resize ke 224x224 px]
-    G2 --> G3[Normalisasi Piksel / 255.0]
-    G3 --> G4[Expand Dimensions Array]
-    G4 --> H[Proses Prediksi oleh Model CNN .h5]
-    H --> I[Ekstrak Nilai Mentah & Confidence Score]
-    I --> J{Confidence >= 55%?}
-    J -- Tidak --> K[Peringatan: AI Ragu-ragu]
-    J -- Ya --> L{Kelas Prediksi?}
-    L -- Kelas 0 --> M[Hasil: FRAKTUR]
-    L -- Kelas 1 --> N[Hasil: NORMAL]
-    K --> O[Selesai]
-    M --> O
-    N --> O
-🧠 Bagaimana AI Mendeteksi Fraktur?
-Proyek ini menggunakan arsitektur Convolutional Neural Network (CNN). Berikut adalah ilustrasi cara AI memproses citra tulang:
+---
 
-Input Layer: Citra X-Ray (224x224 piksel) dimasukkan ke sistem.
+## 📂 Project Structure
 
-Feature Extraction: AI mendeteksi pola tepi tulang, tekstur, dan garis retakan.
+```text
+bone-fracture/
+│
+├── app_gui.py
+├── model.h5
+├── flowchart.mmd
+├── cek_header.py
+│
+├── hasil_training/
+│   ├── classification_report.txt
+│   ├── confusion_matrix.png
+│   └── grafik_akurasi_loss.png
+│
+└── README.md
+```
 
-Classification: Data dikonversi menjadi probabilitas untuk menentukan kelas Fraktur atau Normal.
+---
 
-⚙️ Fitur Utama Aplikasi
-Model CNN Kustom: Mengenali pola diskontinuitas pada tulang.
+## ▶️ Installation
 
-Validasi Heuristik Warna: Mencegah input gambar non-X-Ray dengan filter RGB.
+Clone the repository:
 
-Sistem Threshold: Memblokir hasil jika confidence AI di bawah 55%.
+```bash
+git clone https://github.com/Zidan-py/bone-fracture.git
+cd bone-fracture
+```
 
-GUI Interaktif: Antarmuka web yang rapi dan mudah digunakan.
+Create a virtual environment:
 
-🚀 Cara Menjalankan Proyek
-Persiapan: Aktifkan environment: .venv311\Scripts\activate
+```bash
+python -m venv .venv311
+```
 
-Instalasi: pip install tensorflow keras numpy pillow streamlit matplotlib scikit-learn
+Activate the environment:
 
-Training: python train_model.py
+```bash
+.venv311\Scripts\activate
+```
 
-Jalankan Web: streamlit run app_gui.py
+Install dependencies:
 
-👨‍💻 Pengembang
-M Zidan Al Hafiz - Universitas Bina Bangsa Getsempena
-Proyek ini dikembangkan sebagai bentuk penyelesaian tugas akhir pengembangan sistem kecerdasan buatan.
+```bash
+pip install -r requirements.txt
+```
+
+Run the application:
+
+```bash
+streamlit run app_gui.py
+```
+
+---
+
+## 📈 Future Improvements
+
+* Grad-CAM visualization
+* Multiple fracture categories
+* Mobile application support
+* Cloud deployment
+* Real-time prediction
+
+---
+
+## 👨‍💻 Developer
+
+**Zidan**
+
+GitHub: https://github.com/Zidan-py
+
+---
+
+## 📄 License
+
+This project is developed for educational and research purposes.
